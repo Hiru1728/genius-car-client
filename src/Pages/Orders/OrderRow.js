@@ -1,28 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-const OrderRow = ({ order }) => {
-    const { _id, serviceName, customer, phone, price, service } = order;
+const OrderRow = ({ order, handleDelete, handleStatusUpdate }) => {
+    const { _id, serviceName, customer, phone, price, service, status } = order;
     const [orderService, setOrderService] = useState({});
 
     useEffect(() => {
-        fetch(`http://localhost:5000/services/${service}`)
+        fetch(`https://genius-car-server-rosy-delta.vercel.app/services/${service}`)
             .then(res => res.json())
             .then(data => setOrderService(data))
     }, [service])
 
-    const handleDelete = id => {
-        const proceed = window.confirm('Are you sure, you want to d');
-        if (proceed) {
-            fetch(`http://localhost:5000/orders/${id}`, {
-                method: 'DELETE'
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                })
-
-        }
-    }
 
     return (
         <tr>
@@ -53,7 +40,7 @@ const OrderRow = ({ order }) => {
             </td>
             <td>Indigo</td>
             <th>
-                <button className="btn btn-ghost btn-xs">details</button>
+                <button onClick={() => handleStatusUpdate(_id)} className="btn btn-ghost btn-xs">{status ? status : 'pending'}</button>
             </th>
         </tr>
     );

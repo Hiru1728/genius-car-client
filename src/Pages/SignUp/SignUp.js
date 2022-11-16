@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { setAuthToken } from '../../api/auth';
 import img from '../../assets/images/login/login.svg'
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
@@ -15,6 +16,7 @@ const SignUp = () => {
                 const user = result.user;
                 console.log(user);
                 form.reset();
+                setAuthToken(user);
             })
             .catch(err => console.error(err));
     }
@@ -44,7 +46,7 @@ const SignUp = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="text" name='password' placeholder="Your password" className="input input-bordered" required />
+                            <input type="password" name='password' placeholder="Your password" className="input input-bordered" required />
                         </div>
                         <div className="form-control mt-6">
                             <input className='btn btn-primary' type="submit" value="Sign Up" />

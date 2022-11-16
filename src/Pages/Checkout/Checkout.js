@@ -31,10 +31,12 @@ const Checkout = () => {
 
         // }
 
-        fetch('http://localhost:5000/orders', {
+        fetch('https://genius-car-server-rosy-delta.vercel.app/orders', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('genius token')}`
+
             },
             body: JSON.stringify(order)
 
@@ -63,7 +65,7 @@ const Checkout = () => {
                     <input name='email' type="text" placeholder="Your Email" defaultValue={user?.email} className="input-bordered input input-ghost w-full" readOnly />
                 </div>
                 <textarea name='message' className="textarea textarea-bordered h-24 w-full" placeholder="Your Message" required></textarea>
-                <input className='btn btn-p' type="submit" value="Place your order" />
+                <input className='btn btn-primary' type="submit" value="Place your order" />
             </form>
         </div>
     );
